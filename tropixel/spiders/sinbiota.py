@@ -37,6 +37,7 @@ class SinbiotaSpider(CrawlSpider):
     name = 'sinbiota'
     allowed_domains = ['sinbiota.biota.org.br']
     search_url = 'http://sinbiota.biota.org.br/occurrence/search/'
+    municipality = '624' # ubatuba
 
     rules = (
         # Follow pagination links, set priority to avoid search expiring.
@@ -61,7 +62,7 @@ class SinbiotaSpider(CrawlSpider):
             response,
             formxpath='//form[@id = "occurrence_search_form"]',
             formdata={'search_type': '5', # municipality
-                      'municipality': '624'}) # ubatuba
+                      'municipality': self.municipality})
 
     def parse_item(self, response):
         loader = SinbiotaItemLoader(response=response)
